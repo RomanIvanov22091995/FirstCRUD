@@ -7,6 +7,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" value="bd3621df-72df-4c49-8299-3cb2ab0de624" />
+          <factory-entry name="spring-mvc" value="bd3621df-72df-4c49-8299-3cb2ab0de624" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

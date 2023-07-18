@@ -5,13 +5,8 @@ import com.example.models.User;
 import java.util.List;
 
 public interface UserService {
-    User createUser(User user);
-
-    User updateUser(User user);
-
-    void deleteUser(Long userId);
-
-    User getUserById(Long userId);
-
-    List<User> getAllUsers();
+    List<User> findAll();
+    User findById(Long id);
+    User saveUser(User user);
+    void deleteById(Long id);
 }

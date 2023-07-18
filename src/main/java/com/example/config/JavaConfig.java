@@ -2,7 +2,6 @@ package com.example.config;
 
 import com.example.dao.UserDao;
 import com.example.dao.UserDaoImpl;
-import jakarta.persistence.EntityManagerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -27,7 +26,7 @@ public class JavaConfig {
     @Bean
     public PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory((EntityManagerFactory) entityManager.getEntityManagerFactory());
+        transactionManager.setEntityManagerFactory( entityManager.getEntityManagerFactory());
         return transactionManager;
     }
 }
