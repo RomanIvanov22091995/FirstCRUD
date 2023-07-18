@@ -27,8 +27,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     @Transactional
     public User updateUser(User user) {
-        entityManager.merge(user);
-        return user;
+        return entityManager.merge(user);
     }
 
     @Override
@@ -47,6 +46,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+        return entityManager.createQuery("SELECT u FROM com.example.models.User u", User.class).getResultList();
     }
 }

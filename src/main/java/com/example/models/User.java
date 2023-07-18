@@ -19,7 +19,7 @@ public class User {
     private String name;
 
 
-    public User() {
+    public User(Long id, String username) {
     }
 
     public User(String name) {

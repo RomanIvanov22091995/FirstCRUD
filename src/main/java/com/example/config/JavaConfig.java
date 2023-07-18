@@ -1,41 +1,33 @@
 package com.example.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.dao.UserDao;
+import com.example.dao.UserDaoImpl;
+import jakarta.persistence.EntityManagerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.example.repository")
 public class JavaConfig {
 
-    private final DataSource dataSource;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public JavaConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @Bean
+    public UserDao userDao() {
+        return new UserDaoImpl(entityManager);
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-        emf.setDataSource(dataSource);
-        emf.setPackagesToScan("com.example.models");
-        return emf;
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+    public PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
+        transactionManager.setEntityManagerFactory((EntityManagerFactory) entityManager.getEntityManagerFactory());
         return transactionManager;
     }
 }
